@@ -2,7 +2,7 @@
 
 > by 慢雾安全团队 & Joinsec Team
 > 
-> 感谢 MORE.TOP, EOSAsia, EOS.Store 倾力相助
+> 感谢 IMEOS.ONE, EOSAsia, EOS.Store 倾力相助
 
 ## 架构核心目标
 
