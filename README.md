@@ -2,7 +2,7 @@
 
 > by 慢雾安全团队 & Joinsec Team
 > 
-> 感谢 IMEOS.ONE, EOSAsia, EOS.Store 倾力相助
+> 感谢 IMEOS.ONE, EOS Asia, EOS Store 倾力相助
 
 ## 架构核心目标
 
@@ -28,9 +28,9 @@
 2. BP 通信多链路设计
 
 	- BP 服务器不在公网上暴露，通过跳板服务器（跳板服务器数量要大）进行通信；
-	- 在外网公布的跳板服务器大面积瘫痪时，通过私有网络（1.私有秘密节点 2.私有VPN链路）来同步区块
+	- 在外网公布的跳板服务器大面积瘫痪时，通过私有网络（1.私有秘密节点 2.私有 VPN 链路）来同步区块
 
-3. 防止全网扫描定位高防后的服务器，修改同步端口 9876 （同理RPC的8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
+3. 防止全网扫描定位高防后的服务器，修改同步端口 9876（同理 RPC 的 8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
 
 ## 推荐总架构
 
@@ -56,19 +56,19 @@
 
 ![Architecture](./images/arch-p2.png)
 
-当攻击者通过公开的节点列表攻击公开节点造成公开节点不可用时，则可通过私密节点进行通信。（私密节点可被全网扫描发现，所以并不完全安全）
+当攻击者通过公开的节点列表攻击公开节点造成公开节点不可用时，则可通过私密节点进行通信。（私密节点可被全网扫描发现，所以并不是完全安全）
 
 #### 3. VPN 加密节点（各可信节点间最后的秘密的通信信道）
 
-![Architecture](./images/arch-p4.png)
+![Architecture](./images/arch-p3.png)
 
-当公网节点都被发现，并且攻击者进行攻击导致对公网 Full node 服务器全部阻塞，最后则由私有VPN网络在隔离的虚拟内网内进行通信，保证最基础的出块正常。
+当公网节点都被发现，并且攻击者进行攻击导致对公网 full node 服务器全部阻塞，最后则由私有 VPN 网络在隔离的虚拟内网内进行通信，保证最基础的出块正常。
 
 #### 4. RPC API 节点
 
-![Architecture](./images/arch-p3.png)
+![Architecture](./images/arch-p4.png)
 
-查询用 RPC 所在 Full node 与 BP 完全隔离并架设防御，保证外网对 RPC 的攻击不能影响到 BP 。
+查询用 RPC 所在 full node 与 BP 完全隔离并架设防御，保证外网对 RPC 的攻击不能影响到 BP。
 
 
 ## 加固安全方案
@@ -77,32 +77,32 @@
 
 #### 1.1 屏蔽 RPC
 
-如无必要，建议禁止 RPC 对外访问，配置方法如下：
+如无必要，建议禁止 RPC 对外访问，`config.ini`配置内容如下：
 
 - 配置为空值`http-server-address =`
 - 注释`https-server-address`
 
 #### 1.2 开启 SSL
 
-如果确实需要对外提供 RPC 服务，建议禁用 HTTP 协议，使用 HTTPS，配置方法如下：
+如果确实需要对外提供 RPC 服务，建议禁用 HTTP 协议，使用 HTTPS，`config.ini`配置内容如下：
 
 - 注释`http-server-address`，或者配置为`127.0.0.1:8888`
-- 配置`https-server-address`为`0.0.0.0:9999`
+- 配置`https-server-address`为`0.0.0.0:443`
 - 配置`https-certificate-chain-file` 和 `https-private-key-file` 为证书链文件路径和私钥文件路径，注意两个文件格式必须为 PEM
 
 #### 1.3 禁用 `wallet_plugin` 和 `wallet_api_plugin`
 
-在对外提供 RPC 服务的场景下，**一定不要加载**`wallet_plugin` 和 `wallet_api_plugin`。如果加载了`wallet_plugin `，攻击者就可以通过 RPC API `/v1/wallet/list_keys` 获取解锁账户的私钥。此外，攻击者还可以恶意循环调用`/v1/wallet/lock_all`使节点上的账户无法解锁。
+在对外提供 RPC 服务的场景下，**一定不要加载** `wallet_plugin` 和 `wallet_api_plugin`。如果加载了`wallet_plugin` 和 `wallet_api_plugin`，攻击者就可以通过 RPC API `/v1/wallet/list_keys` 获取已解锁账户的私钥。此外，攻击者还可以恶意循环调用`/v1/wallet/lock_all`使节点上的账户无法解锁。
 
 #### 1.4 禁用`producer_api_plugin`
 
-在对外提供 RPC 服务的场景下，**一定不要加载**`producer_api_plugin `。如果加载了`producer_api_plugin `，攻击者就可以通过 RPC API `/v1/producer/pause` 远程控制节点停止生产。
+在对外提供 RPC 服务的场景下，**一定不要加载** `producer_api_plugin `。如果加载了`producer_api_plugin `，攻击者就可以通过 RPC API `/v1/producer/pause` 远程控制节点停止生产。
 
 ### 2. 配置安全
 
-#### 2.1 生成 active 多签密钥
+#### 2.1 生成 Active 多签密钥
 
-由于超级节点账户的公私钥明文配置在`config.ini`中，存在较大的风险，建议对这个账户生成 active 多签，提高资产转出门槛。举例如下：
+由于超级节点账户的公私钥明文配置在`config.ini`中，存在较大的风险，建议对这个账户生成 Active 多签，提高资产转出门槛。举例如下：
 
 ```
 授予 shrimp2 和 shrimp3 拥有 shrimp1 的权限
@@ -120,7 +120,7 @@ cleos set account permission shrimp1 active '{"threshold":1,"keys":[{"key":"EOS6
 
 #### 2.4 `max-clients`参数优化
 
-在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`等系统参数，增强恶意连接攻击承受能力。
+在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`系统参数和内核参数，增强恶意连接攻击承受能力。
 
 ### 3. 网络安全
 
@@ -132,7 +132,7 @@ cleos set account permission shrimp1 active '{"threshold":1,"keys":[{"key":"EOS6
 
 #### 3.2 云服务商
 
-经慢雾安全团队测试，Google Cloud Platform 和 Amazon Web Services 具有更好的抗DDoS攻击的性能，并且在DDoS攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
+经慢雾安全团队测试，Google Cloud Platform 和 Amazon Web Services 具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
 
 #### 3.3 DDoS 防御
 
@@ -140,6 +140,6 @@ cleos set account permission shrimp1 active '{"threshold":1,"keys":[{"key":"EOS6
 
 ### 4. 主机安全
 
-- 防止全网扫描定位高防后的服务器，修改同步端口 9876 （同理RPC的8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
+- 防止全网扫描定位高防后的服务器，修改同步端口 9876 （同理 RPC 的 8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
 - 关闭不相关的其他服务端口，并在 AWS 或 Google cloud 上定制严格的安全规则。
-- 更改 SSH 默认的 22 端口，配置 SSH 只允许用 key （并对key加密）登录，禁止密码登录，并限制访问SSH端口的IP只能为我方运维IP。
+- 更改 SSH 默认的 22 端口，配置 SSH 只允许用 key （并对 key 加密）登录，禁止密码登录，并限制访问 SSH 端口的 IP 只能为我方运维 IP。
