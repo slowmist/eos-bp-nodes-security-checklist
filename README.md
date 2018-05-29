@@ -26,10 +26,8 @@
 
 1. 默认关闭 RPC。必须打开时，混淆端口，并架设高防等保护
 2. BP 通信多链路设计
-
 	- BP 服务器不在公网上暴露，通过跳板服务器（跳板服务器数量要大）进行通信；
 	- 在外网公布的跳板服务器大面积瘫痪时，通过私有网络（1.私有秘密节点 2.私有 VPN 链路）来同步区块
-
 3. 防止全网扫描定位高防后的服务器，修改同步端口 9876（同理 RPC 的 8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
 
 ## 推荐总架构
@@ -107,7 +105,7 @@
 ```
 授予 shrimp2 和 shrimp3 拥有 shrimp1 的权限
 
-cleos set account permission shrimp1 active '{"threshold":1,"keys":[{"key":"EOS6tjMy84SYqQEUcUXQeMLmeBo99aakJCbieu2TSMk2Agn6nTwmX","weight":1}],"accounts":[{"permission":{"actor":"shrimp2","permission":"active"},"weight":1},{"permission":{"actor":"shrimp3","permission":"active"},"weight":1}],"waits":[]}' owner
+cleos set account permission shrimp1 active '{"threshold":2,"keys":[{"key":"EOS6tjMy84SYqQEUcUXQeMLmeBo99aakJCbieu2TSMk2Agn6nTwmX","weight":2}],"accounts":[{"permission":{"actor":"shrimp2","permission":"active"},"weight":1},{"permission":{"actor":"shrimp3","permission":"active"},"weight":1}],"waits":[]}' owner
 ```
 
 #### 2.2 开启日志记录
@@ -132,14 +130,14 @@ cleos set account permission shrimp1 active '{"threshold":1,"keys":[{"key":"EOS6
 
 #### 3.2 云服务商
 
-经慢雾安全团队测试，Google Cloud Platform 和 Amazon Web Services 具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
+经慢雾安全团队测试，Google Cloud 和 AWS 具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
 
 #### 3.3 DDoS 防御
 
-为应对可能发生的 DDoS 攻击，建议超级节点提前配置 Cloudflare、AWS Shield等 DDoS 高防服务。
+为应对可能发生的 DDoS 攻击，建议超级节点提前配置 Cloudflare、AWS Shield 等 DDoS 高防服务。
 
 ### 4. 主机安全
 
 - 防止全网扫描定位高防后的服务器，修改同步端口 9876 （同理 RPC 的 8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
-- 关闭不相关的其他服务端口，并在 AWS 或 Google cloud 上定制严格的安全规则。
+- 关闭不相关的其他服务端口，并在 AWS 或 Google Cloud 上定制严格的安全规则。
 - 更改 SSH 默认的 22 端口，配置 SSH 只允许用 key （并对 key 加密）登录，禁止密码登录，并限制访问 SSH 端口的 IP 只能为我方运维 IP。
