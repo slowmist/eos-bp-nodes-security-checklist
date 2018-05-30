@@ -27,6 +27,7 @@
 		* [2.2 开启日志记录](#22-开启日志记录)
 		* [2.3 Docker 默认参数优化](#23-docker-默认参数优化)
 		* [2.4 max-clients参数优化](#24-max-clients参数优化)
+		* [2.5 非 root 启动 nodeos](#25-非-root-启动-nodeos)
 	* [3. 网络安全](#3-网络安全)
 		* [3.1 网络架构](#31-网络架构)
 		* [3.2 云服务商](#32-云服务商)
@@ -151,6 +152,10 @@ cleos set account permission shrimp1 active '{"threshold":2,"keys":[{"key":"EOS6
 ~~在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`系统参数和内核参数，增强恶意连接攻击承受能力。~~
 
 EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d)中修复了[P2P单节点恶意连接的问题](https://github.com/EOSIO/eos/issues/3497)，并新增了默认配置`max_nodes_per_host = 1`。所以`max-clients`不需要设置为0，可以根据节点性能酌情配置。
+
+#### 2.5 非 root 启动 nodeos
+
+建议编译完成后，创建普通用户账号，并使用该账号启动 nodeos，避免使用 root，降低风险。
 
 ### 3. 网络安全
 
