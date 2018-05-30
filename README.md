@@ -148,7 +148,9 @@ cleos set account permission shrimp1 active '{"threshold":2,"keys":[{"key":"EOS6
 
 #### 2.4 `max-clients`参数优化
 
-在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`系统参数和内核参数，增强恶意连接攻击承受能力。
+~~在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`系统参数和内核参数，增强恶意连接攻击承受能力。~~
+
+EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d)中修复了[P2P单节点恶意连接的问题](https://github.com/EOSIO/eos/issues/3497)，并新增了默认配置`max_nodes_per_host = 1`。所以`max-clients`不需要设置为0，可以根据节点性能酌情配置。
 
 ### 3. 网络安全
 
