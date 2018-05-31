@@ -4,6 +4,8 @@
 > 
 > Thanks IMEOS.ONE, EOS Asia, EOS Store for help
 
+#### [中文版](./README.md)
+
 ## Architecture Core Goals
 
 1. Protect the normal communication and operation of BPs
@@ -120,6 +122,10 @@ The configuration in the official repository `https://github.com/EOSIO/eos/blob/
 ~~Configure max-clients=0 in the configuration file to increase the number of concurrent connections on the P2P port to unlimited. (process is still single-threaded)  At the same time, optimize system parameters (ulimit) and kernel parameters to enhance protection against malicious connection attacks.~~
 
 The [commit](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d) fixed ["malicious P2P connections from same IP"](https://github.com/EOSIO/eos/issues/3497) issue and added a new default parameter `max_nodes_per_host = 1`. So `max-clients` no longer has to be 0 and can be set accordingly.
+
+#### 2.5 Non-root launch nodeos
+
+After the compilation is complete, create a normal user account and use this account to launch nodeos, avoid using root in order to reduce risks.
 
 ### 3. Network Security
 
