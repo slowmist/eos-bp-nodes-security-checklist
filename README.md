@@ -4,6 +4,8 @@
 > 
 > 感谢 IMEOS.ONE, EOS Asia, EOS Store 倾力相助
 
+#### [English](./README-en.md)
+
 ## 目录
 
 * [架构核心目标](#架构核心目标)
