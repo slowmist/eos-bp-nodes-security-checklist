@@ -120,6 +120,7 @@
 - 注释`http-server-address`，或者配置为`127.0.0.1:8888`
 - 配置`https-server-address`为`0.0.0.0:443`
 - 配置`https-certificate-chain-file` 和 `https-private-key-file` 为证书链文件路径和私钥文件路径，注意两个文件格式必须为 PEM
+- 配置证书链文件和私钥文件权限为600
 
 #### 1.3 禁用 `wallet_plugin` 和 `wallet_api_plugin`
 
