@@ -193,9 +193,9 @@ EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462e
 * EOS Pacific
 * UnlimitedEOS
 * EOS Cannon
-* EOSPACE
+* EOSpace
 * Blockgenic
-* EOS Eco
+* EOSeco
 * EOSLaoMao
 * OneChain
 

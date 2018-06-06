@@ -158,9 +158,9 @@ To cope with possible DDoS attacks, it is recommended that block producers be co
 * EOS Pacific
 * UnlimitedEOS
 * EOS Cannon
-* EOSPACE
+* EOSpace
 * Blockgenic
-* EOS Eco
+* EOSeco
 * EOSLaoMao
 * OneChain
 
