@@ -36,6 +36,7 @@
 		* [3.3 DDoS 防御](#33-ddos-防御)
 	* [4. 主机安全](#4-主机安全)
 	* [5. 威胁情报](#5-威胁情报)
+* [致谢](#致谢)
 
 ## 架构核心目标
 
@@ -148,13 +149,13 @@ cleos set account permission shrimp1 active '{"threshold":2,"keys":[{"key":"EOS6
 
 #### 2.3 Docker 默认参数优化
 
-官方仓库`https://github.com/EOSIO/eos/blob/master/Docker/config.ini`中的配置过于宽泛，加载了`wallet_api_plugin `等插件，存在较大风险，建议在`docker build`之前修改配置。
+官方仓库`https://github.com/EOSIO/eos/blob/master/Docker/config.ini`中的配置过于宽泛，~~加载了`wallet_api_plugin`等插件，存在较大风险~~（官方已优化），建议在`docker build`之前修改配置。
 
 #### 2.4 `max-clients`参数优化
 
 ~~在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`系统参数和内核参数，增强恶意连接攻击承受能力。~~
 
-EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d)中修复了[P2P单节点恶意连接的问题](https://github.com/EOSIO/eos/issues/3497)，并新增了默认配置`max_nodes_per_host = 1`。所以`max-clients`不需要设置为0，可以根据节点性能酌情配置。
+官方在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d)中修复了[P2P单节点恶意连接的问题](https://github.com/EOSIO/eos/issues/3497)，并新增了默认配置`max_nodes_per_host = 1`。所以`max-clients`不需要设置为0，可以根据节点性能酌情配置。
 
 #### 2.5 非 root 启动 nodeos
 
@@ -170,7 +171,7 @@ EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462e
 
 #### 3.2 云服务商
 
-经慢雾安全团队测试，Google Cloud 和 AWS 具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
+经慢雾安全团队测试，Google Cloud、AWS 及 UCloud 等具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
 
 #### 3.3 DDoS 防御
 
