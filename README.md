@@ -181,3 +181,22 @@ EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462e
 - 防止全网扫描定位高防后的服务器，修改同步端口 9876 （同理 RPC 的 8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
 - 关闭不相关的其他服务端口，并在 AWS 或 Google Cloud 上定制严格的安全规则。
 - 更改 SSH 默认的 22 端口，配置 SSH 只允许用 key （并对 key 加密）登录，禁止密码登录，并限制访问 SSH 端口的 IP 只能为我方运维 IP。
+- 在预算充足的情况下，推荐部署优秀的 HIDS，预防服务器被入侵。
+
+## 致谢
+
+在此非常感谢
+
+* HelloEOS
+* EOS Asia
+* EOSBIXIN
+* EOS Pacific
+* UnlimitedEOS
+* EOS Cannon
+* EOSPACE
+* Blockgenic
+* EOS Eco
+* EOSLaoMao
+* OneChain
+
+等社区节点参与到节点安全测试中，为社区安全积累了宝贵的数据。
