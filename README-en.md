@@ -145,8 +145,23 @@ To cope with possible DDoS attacks, it is recommended that block producers be co
 
 ### 4. Host Security
 
-Protect BP Servers from being discovered and located in global scale network scans. Use most common ports such as 80, 443 or 22 as P2P/RPC ports instead of 9876/8888, which can effectively increase the attacker's cost to identify BPs.Note: setting the ports to totally random ports might also help.
-Close irrelevant service ports and customize strict security rules on AWS or Google Cloud.
+* Protect BP Servers from being discovered and located in global scale network scans. Use most common ports such as 80, 443 or 22 as P2P/RPC ports instead of 9876/8888, which can effectively increase the attacker's cost to identify BPs. **Note:** setting the ports to totally random ports might also help.
+* Close irrelevant service ports and customize strict security rules on AWS or Google Cloud.
+* Change the default SSH port 22. Configure SSH to allow only private key authentication. Restrict SSH access to only authorized IP addresses of operations team.
+* In the case of ample budget, it is recommended to deploy excellent HIDS software to prevent the server from being hacked.
 
-Change the default SSH port 22. Configure SSH to allow only private key authentication. Restrict SSH access to only authorized IP addresses of operations team.
+## Contributors
 
+* HelloEOS
+* EOS Asia
+* EOSBIXIN
+* EOS Pacific
+* UnlimitedEOS
+* EOS Cannon
+* EOSPACE
+* Blockgenic
+* EOS Eco
+* EOSLaoMao
+* OneChain
+
+Thanks to these bps for participating in the node security test, they have accumulated valuable data for community safety.
