@@ -18,7 +18,7 @@
 		* [2. 私密节点（只对其他可信BP节点私密分享的通信节点）](#2-私密节点只对其他可信bp节点私密分享的通信节点)
 		* [3. VPN 加密节点（各可信节点间最后的秘密的通信信道）](#3-vpn-加密节点各可信节点间最后的秘密的通信信道)
 		* [4. RPC API 节点](#4-rpc-api-节点)
-* [加固安全方案](#加固安全方案)
+* [安全加固方案](#安全加固方案)
 	* [1. RPC 安全](#1-rpc-安全)
 		* [1.1 屏蔽 RPC](#11-屏蔽-rpc)
 		* [1.2 开启 SSL](#12-开启-ssl)
@@ -35,7 +35,8 @@
 		* [3.2 云服务商](#32-云服务商)
 		* [3.3 DDoS 防御](#33-ddos-防御)
 	* [4. 主机安全](#4-主机安全)
-
+	* [5. 威胁情报](#5-威胁情报)
+* [致谢](#致谢)
 
 ## 架构核心目标
 
@@ -102,7 +103,7 @@
 查询用 RPC 所在 full node 与 BP 完全隔离并架设防御，保证外网对 RPC 的攻击不能影响到 BP。
 
 
-## 加固安全方案
+## 安全加固方案
 
 ### 1. RPC 安全
 
@@ -120,7 +121,7 @@
 - 注释`http-server-address`，或者配置为`127.0.0.1:8888`
 - 配置`https-server-address`为`0.0.0.0:443`
 - 配置`https-certificate-chain-file` 和 `https-private-key-file` 为证书链文件路径和私钥文件路径，注意两个文件格式必须为 PEM
-- 配置证书链文件和私钥文件权限为600
+- 配置证书链文件和私钥文件权限为 600
 
 #### 1.3 禁用 `wallet_plugin` 和 `wallet_api_plugin`
 
@@ -148,13 +149,13 @@ cleos set account permission shrimp1 active '{"threshold":2,"keys":[{"key":"EOS6
 
 #### 2.3 Docker 默认参数优化
 
-官方仓库`https://github.com/EOSIO/eos/blob/master/Docker/config.ini`中的配置过于宽泛，加载了`wallet_api_plugin `等插件，存在较大风险，建议在`docker build`之前修改配置。
+官方仓库`https://github.com/EOSIO/eos/blob/master/Docker/config.ini`中的配置过于宽泛，~~加载了`wallet_api_plugin`等插件，存在较大风险~~（官方已优化），建议在`docker build`之前修改配置。
 
 #### 2.4 `max-clients`参数优化
 
 ~~在配置文件中配置`max-clients = 0` 提升 P2P 端口并发连接数为无限制，同时优化`ulimit`系统参数和内核参数，增强恶意连接攻击承受能力。~~
 
-EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d)中修复了[P2P单节点恶意连接的问题](https://github.com/EOSIO/eos/issues/3497)，并新增了默认配置`max_nodes_per_host = 1`。所以`max-clients`不需要设置为0，可以根据节点性能酌情配置。
+官方在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2be1449df2d)中修复了[P2P单节点恶意连接的问题](https://github.com/EOSIO/eos/issues/3497)，并新增了默认配置`max_nodes_per_host = 1`。所以`max-clients`不需要设置为0，可以根据节点性能酌情配置。
 
 #### 2.5 非 root 启动 nodeos
 
@@ -170,7 +171,7 @@ EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462e
 
 #### 3.2 云服务商
 
-经慢雾安全团队测试，Google Cloud 和 AWS 具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
+经慢雾安全团队测试，Google Cloud、AWS 及 UCloud 等具有更好的抗 DDoS 攻击的性能，并且在 DDoS 攻击过后服务商不会临时封锁服务器，可以极为快速的恢复网络访问，推荐超级节点使用。（请谨慎选择云服务商，许多云服务商在遭遇 DDoS 等攻击时会直接关闭服务器）
 
 #### 3.3 DDoS 防御
 
@@ -181,7 +182,14 @@ EOSIO 在 [这个提交](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462e
 - 防止全网扫描定位高防后的服务器，修改同步端口 9876 （同理 RPC 的 8888）至全网最大存活数量的端口 80、443 或 22，这样可以有效抬高攻击者定位成本。
 - 关闭不相关的其他服务端口，并在 AWS 或 Google Cloud 上定制严格的安全规则。
 - 更改 SSH 默认的 22 端口，配置 SSH 只允许用 key （并对 key 加密）登录，禁止密码登录，并限制访问 SSH 端口的 IP 只能为我方运维 IP。
-- 在预算充足的情况下，推荐部署优秀的 HIDS，预防服务器被入侵。
+- 在预算充足的情况下，推荐部署优秀的 HIDS（或者强烈建议参考开源的 OSSEC 相关做法），及时应对服务器被入侵。
+
+### 5. 威胁情报
+
+- 强烈建议做好相关重要日志的采集、储存与分析工作，这些日志包括：RPC 与 P2P 端口的完整通信日志、主机的系统日志、节点相关程序的运行日志等。储存与分析工作可以选择自建类似 ELK(ElasticSearch, Logstash, Kibana) 这样的开源方案，也可以购买优秀的商业平台。
+- 如果使用了成熟的云服务商，他们的控制台有不少威胁情报相关模块可重点参考，以及时发现异常。
+- 当节点出现重大漏洞或相关攻击情报，第一时间启动应急预案，包括灾备策略与升级策略。
+- 社区情报互通有无。
 
 ## 致谢
 
