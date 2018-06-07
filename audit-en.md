@@ -1,4 +1,4 @@
-# The Block Producer Security Audit 
+# The Block Producer Security Audit
 
 > by SlowMist Security Team  & Joinsec Team
 > 
@@ -11,7 +11,7 @@
 * [Audit Core Goals](#audit-core-goals)
 * [Audit Core Direction](#audit-core-direction)
 * [Audit Coverage](#audit-coverage)
-	* [1. Block Producer Self Audit](#1-block-producer-selft-audit)
+	* [1. Block Producer Self Audit](#1-block-producer-self-audit)
 		* [1.1 Architecture Audit](#11-architecture-audit)
 		* [1.2 RPC Security Audit](#12-rpc-security-audit)
 		* [1.3 Configuration Security Audit](#13-configuration-security-audit)
@@ -70,7 +70,7 @@ Refer: [EOS BP Nodes Security Checklist](./README-en.md)
 1. whether the  server provider is a quality supplier with security. Since building infrastructure security requires huge amounts of money and efforts,  if choose some small services, it is highly possible that the Internet service providers will cutdown the connection when server surfering hacks. Therefore, it is a very cost-effective and safe choice to stand on the shoulders of giants. After testing, UCloud, AWS, Google Cloud, etc. have very good anti-attack and post-attack resilience.
 1. Performing security audit of the real open port service of  the BPC's  public network IP  will prevent the operator from exposing vulnerable points due to incorrect configuration of service and security rules.
 
-#### 2.2 BPC vulnerability audit
+#### 2.2 BP vulnerability audit
 
 1. Audit the ability of nodes to counter full-network scanning and the ability to  hide real public network IP. For example,  whether the bp uses the default port configuration (e.g., use the default port 8888, 9876, or other ports like this kind, etc.) led to the vulnerability of exposing to entire network scanning, and easy to be  attacked (currently we already know some test nodes have encountered RPC scanning and malicious call).
 1. Audit whether the sensitive information of node is leaked on the public network, such as on GitHub.

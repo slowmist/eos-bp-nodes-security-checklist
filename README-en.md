@@ -6,6 +6,8 @@
 
 #### [中文版](./README.md)
 
+### [The Block Producer Security Audit](./audit-en.md)
+
 ## Architecture Core Goals
 
 1. Protect the normal communication and operation of BPs
