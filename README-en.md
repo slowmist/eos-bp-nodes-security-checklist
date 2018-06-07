@@ -88,6 +88,7 @@ When external access to RPC is mandatory, it is recommended to disable HTTP and 
 - Comment out `http-server-address`, or set it to `127.0.0.1:8888`
 - Set `https-server-address` to `0.0.0.0:443`
 - Set `https-certificate-chain-file` and `https-private-key-file` to the paths of certificate chain file path and private key file respectively. Note that both files must be of PEM format.
+- Configure the certificate chain file and private key file permissions to 600
 
 #### 1.3 Disable `wallet_plugin` and `wallet_api_plugin`
 
@@ -115,7 +116,7 @@ Configure `logconf` parameters in the configuration file to allow necessary RPC 
 
 #### 2.3 Optimize Docker Defaults
 
-The configuration in the official repository `https://github.com/EOSIO/eos/blob/master/Docker/config.ini` is too generic. Plug-ins such as `wallet_api_plugin` are enabled by default, which is a great risk. It is recommended to modify the configuration before running docker build. We strongly recommend using LXD instead of Docker.
+The configuration in the official repository `https://github.com/EOSIO/eos/blob/master/Docker/config.ini` is too generic. ~~Plug-ins such as `wallet_api_plugin` are enabled by default, which is a great risk. ~~ (repo updated) It is recommended to modify the configuration before running docker build. We strongly recommend using LXD instead of Docker.
 
 #### 2.4 Optimize max-clients
 
@@ -149,6 +150,13 @@ To cope with possible DDoS attacks, it is recommended that block producers be co
 * Close irrelevant service ports and customize strict security rules on AWS or Google Cloud.
 * Change the default SSH port 22. Configure SSH to allow only private key authentication. Restrict SSH access to only authorized IP addresses of operations team.
 * In the case of ample budget, it is recommended to deploy excellent HIDS software to prevent the server from being hacked.
+
+### 5. Threat Intelligence
+
+* It is strongly recommended to do collection, storage and analysis work of the related important logs, which include: the complete communication log between RPC and P2P port, the host system log, node related programs run log, etc. Storage and analysis can be done by building applications with open source programs like ELK(ElasticSearch, Logstash, Kibana), or by buying service from great business platforms.
+* If a cloud service from mature provider is used, the console has a number of threat intelligence related modules to refer to, and find exceptions. 
+* When a major vulnerability or related attack information occurs at the node, the emergency plan shall be launched immediately, including disaster preparedness strategy and upgrade strategy.
+* Community intelligence should be shared.
 
 ## Contributors
 
