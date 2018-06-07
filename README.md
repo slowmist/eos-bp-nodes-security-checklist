@@ -161,6 +161,13 @@ cleos set account permission shrimp1 active '{"threshold":2,"keys":[{"key":"EOS6
 
 建议编译完成后，创建普通用户账号，并使用该账号启动 nodeos，避免使用 root，降低风险。
 
+#### 2.6 监听随机端口
+
+- `p2p-listen-endpoint = ip:`
+- `http-server-address = ip:`
+
+每次启动会随机监听一个端口，如果是对外服务的，建议采用 [主机安全](#4-主机安全) 中的配置方法
+
 ### 3. 网络安全
 
 #### 3.1 网络架构

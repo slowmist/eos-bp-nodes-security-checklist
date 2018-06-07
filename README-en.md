@@ -128,6 +128,13 @@ The [commit](https://github.com/EOSIO/eos/commit/d7dff4f1df4a3ab462ef4a60a24ca2b
 
 After the compilation is complete, create a normal user account and use this account to launch nodeos, avoid using root in order to reduce risks.
 
+#### 2.6 Listen random port
+
+- `p2p-listen-endpoint = ip:`
+- `http-server-address = ip:`
+
+Every time nodeos is started, it will randomly listen to a port. If it is externally serviced, it is recommended to use the configuration method in [Host Security](#4-host-security).
+
 ### 3. Network Security
 
 #### 3.1 Network Architecture
