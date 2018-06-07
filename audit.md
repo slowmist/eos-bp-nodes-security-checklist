@@ -2,6 +2,8 @@
 
 > by 慢雾安全团队 & Joinsec Team
 
+#### [English](./audit-en.md)
+
 ## 目录
 
 * [审计核心目标](#审计核心目标)
@@ -36,7 +38,7 @@
 
 ### 1. 节点自我审计
 
-参考：[EOS超级节点安全执行指南](README.md)
+参考：[EOS超级节点安全执行指南](./README.md)
 
 #### 1.1 架构审计
 
@@ -84,6 +86,7 @@
 
 * HelloEOS
 * EOS Asia
+* EOS Store
 * EOSBIXIN
 * EOS Pacific
 * UnlimitedEOS
