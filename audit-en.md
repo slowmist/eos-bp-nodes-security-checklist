@@ -17,7 +17,7 @@
 		* [1.3 Configuration Security Audit](#13-configuration-security-audit)
 	* [2. Team Security Audit](#2-team-security-audit)
 		* [2.1  Infrastructure Audit](#21-infrastructure-audit)
-		* [2.2 BP vulnerability Audit](#22-bp-vulnerability)
+		* [2.2 BP vulnerability Audit](#22-bp-vulnerability-audit)
 		* [2.3 Performance Audit under DDoS](#23-performance-audit-under-ddos)
 * [Contributors](#contributors)
 
