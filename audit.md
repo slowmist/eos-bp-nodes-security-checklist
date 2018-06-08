@@ -96,5 +96,8 @@
 * EOSeco
 * EOSLaoMao
 * OneChain
+* EOS Store
+* EOS Beijing
+* MotionEOS
 
 等社区节点参与到节点安全测试中，为社区安全积累了宝贵的数据。

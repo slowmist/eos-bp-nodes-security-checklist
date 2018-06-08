@@ -98,5 +98,8 @@ Special thanks to:
 * EOSeco
 * EOSLaoMao
 * OneChain
+* EOS Store
+* EOS Beijing
+* MotionEOS
 
 Thanks to these bps for participating in the node security test, they have accumulated valuable data for community safety.
