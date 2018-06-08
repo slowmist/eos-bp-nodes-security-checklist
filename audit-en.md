@@ -101,5 +101,7 @@ Special thanks to:
 * EOS Store
 * EOS Beijing
 * MotionEOS
+* EOSvillage
+* EOS AntPool
 
 Thanks to these bps for participating in the node security test, they have accumulated valuable data for community safety.
