@@ -103,5 +103,6 @@ Special thanks to:
 * MotionEOS
 * EOSvillage
 * EOS AntPool
+* EOS Gravity
 
 Thanks to these bps for participating in the node security test, they have accumulated valuable data for community safety.
